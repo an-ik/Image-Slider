@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Path</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Artboard" transform="translate(-59.000000, -352.000000)" fill-rule="nonzero" stroke="#FFFFFF" stroke-width="2">
+            <g id="Group-2" transform="translate(40.000000, 332.000000)">
+                <polyline id="Path" transform="translate(28.136364, 29.227273) rotate(-90.000000) translate(-28.136364, -29.227273) " points="20.1363636 33.5909091 28.1363636 24.8636364 36.1363636 33.5909091"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

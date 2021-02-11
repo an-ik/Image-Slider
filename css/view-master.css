@@ -7,7 +7,7 @@
           --controlButtonsHoverandScale: transform .2s ease-in-out;
           --controlCloseButtonRotate: transform .2s ease-in-out;
           --imgHoverOpacity: opacity .2s ease-in-out;
-          --modalInOut: top .2s ease-out;
+          --modalInOut: top .2s ease-out, opacity .1s ease-in-out;
 }
 
 /* Window Level Styles */
@@ -98,11 +98,12 @@ a.view-master-close-btn:hover > img {
 /* View Master Container */
 
 .view-master-modal {
+          background-color: rgba(0, 0, 0, 0.8);
+          opacity: 0;
           width: 100vw;
           height: 100vh;
           position: fixed;
           top: 100vh;
-          background-color: rgba(0, 0, 0, 0.85);
           transition: var(--modalInOut);
 }
 
@@ -111,7 +112,6 @@ a.view-master-close-btn:hover > img {
           flex-direction: column;
           height: 100%;
           width: 100%;
-          padding: 4vh;
 }
 
 /* View Master Controls */
@@ -123,6 +123,7 @@ a.view-master-close-btn:hover > img {
 .view-master-close-btn {
           display: inline-block;
           padding: 0px 24px 0px 24px;
+          margin: 40px 0px 0px 40px;
           border-radius: 16px;
           line-height: 52px;
           transition: var(--controlButtonsHover);
@@ -150,11 +151,12 @@ a.view-master-close-btn:hover > img {
           display: flex;
           flex-direction: row;
           overflow: hidden;
+          margin-bottom: 40px;
 }
 
 .previous-image-btn, .next-image-btn {
           border-radius: 50%;
-          margin: 0px 10px 0px 10px;
+          margin: 0px 40px 0px 40px;
           align-self: center;
           transition: var(--controlButtonsHover);
 }
@@ -181,10 +183,23 @@ a.view-master-close-btn:hover > img {
           width: 100vw;
           height: 100vh;
           position: fixed;
-          background-color: rgba(0, 0, 0, 0.85);
-          backdrop-filter: blur(20px) saturate(200%) contrast(10%) brightness(130%);
+          backdrop-filter: blur(40px) saturate(50%) contrast(30%) brightness(120%);
           top: 0px;
           opacity: 1;
           transition: var(--modalInOut);
 }
 
+@media (max-width: 425px) {
+          .previous-image-btn, .next-image-btn {
+                    display:none;
+          }
+          .gallery a:nth-child(3n) {
+                    grid-column-start: 1;
+                    grid-column-end: 1;
+          }
+          .gallery {
+                    max-width: 100%;
+                    grid-template-columns: 1fr;
+                    border-radius: 0px;
+          }
+}

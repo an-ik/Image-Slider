@@ -75,7 +75,7 @@ a.view-master-close-btn:hover > img {
           margin-right: auto;
           grid-template-columns: 1fr 1fr;
           grid-auto-rows: 300px;
-          grid-gap: 4px;
+          grid-gap: 8px;
           clip-path:fill-box;
           border-radius: 10px;
           overflow: hidden;
@@ -101,11 +101,11 @@ a.view-master-close-btn:hover > img {
           background-color: rgba(0, 0, 0, 0.9);
           -webkit-backdrop-filter: blur(40px);
           backdrop-filter: blur(40px);
-          opacity: 0;
           width: 100vw;
           height: 100vh;
           position: fixed;
           top: 100vh;
+          opacity: 0;
           transition: var(--modalInOut);
 }
 
@@ -189,6 +189,12 @@ a.view-master-close-btn:hover > img {
           opacity: 1;
           transition: var(--modalInOut);
 }
+
+.stopScroll {
+          overflow: hidden;
+}
+
+/* Media Query */
 
 @media (max-width: 425px) {
           .previous-image-btn, .next-image-btn {

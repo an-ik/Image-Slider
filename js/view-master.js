@@ -6,7 +6,8 @@ const     viewMasterModal     = document.querySelector('.view-master-modal'),
           gallery             = document.querySelector('.gallery'),
           galleryArray        = Array.from(gallery.children),
           reel                = document.querySelector('.reel-images'),
-          pagination          = document.querySelector('.pagination');
+          pagination          = document.querySelector('.pagination'),
+          body                = document.querySelector('body');
 var       galleryImageindex   = 0;
 
 // Functions
@@ -17,6 +18,7 @@ const findClickedImageIndex = (e) => {
 
 const toggleViewMaster = () => {
           viewMasterModal.classList.toggle('modal-is-displayed');
+          body.classList.toggle('stopScroll');
 }
 
 const displayImageInViewMaster = () => {

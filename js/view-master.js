@@ -1,75 +1,32 @@
 // Variables
-const     viewMasterModal     = document.querySelector('.view-master-modal'),
-          nextButton          = document.querySelector('.next-image-btn'),
-          previousButton      = document.querySelector('.previous-image-btn'),
-          closeButton         = document.querySelector('.view-master-close-btn'),
-          gallery             = document.querySelector('.gallery'),
-          galleryArray        = Array.from(gallery.children),
-          reel                = document.querySelector('.reel-images'),
-          pagination          = document.querySelector('.pagination'),
-          body                = document.querySelector('body');
-var       galleryImageindex   = 0;
+const     
+          imageReel                     = document.querySelector('.gallery ul'),
+          gallery                       = document.querySelector('.gallery'),
+          imageArray                    = Array.from(imageReel.children),
+          viewMaster                    = document.querySelector('.view-master'),
+          AddViewMasterImageReel        = viewMaster.innerHTML += imageReel.outerHTML,
+          ViewMasterImageReel           = document.querySelector('.view-master ul'),
+          nextButton                    = document.querySelector('.next-image-btn'),
+          previousButton                = document.querySelector('.previous-image-btn'),
+          closeButton                   = document.querySelector('.view-master-close-btn'),
+          pagination                    = document.querySelector('.pagination'),
+          viewMasterModal               = document.querySelector('.view-master-modal');
+var       setLeftPosition               = 0,
+          imageArrayIndex               = 0;
 
-// Functions
-const findClickedImageIndex = (e) => {
-          const galleryclickedImage = e.target.closest('a'); 
-          galleryImageIndex = galleryArray.findIndex(image => image === galleryclickedImage);
-}
-
-const toggleViewMaster = () => {
-          viewMasterModal.classList.toggle('modal-is-displayed');
-          body.classList.toggle('stopScroll');
-}
-
-const displayImageInViewMaster = () => {
-          insertCurrentImage();
-          updatePagination();
-}
-
-const insertCurrentImage = () => {
-          reel.innerHTML = (galleryArray[galleryImageIndex].innerHTML);
-}
-
-const displayNextImage = () => {
-          if (galleryImageIndex >= galleryArray.length - 1) {
-                    galleryImageIndex = 0;
-                    insertCurrentImage();
-                    updatePagination();
-          }
-          else {
-                    galleryImageIndex++;
-                    insertCurrentImage();
-                    updatePagination();
-          }
-}
-
-const displayPreviousImage = () => {
-          if (galleryImageIndex === 0) {
-                    galleryImageIndex = galleryArray.length - 1;
-                    insertCurrentImage();
-                    updatePagination();
-          }
-          else {
-                    galleryImageIndex--;
-                    insertCurrentImage();
-                    updatePagination();
-          }
-}
-
-const updatePagination = () => {
-          pagination.innerHTML = (galleryImageIndex + 1) + ' / ' + (galleryArray.length);
-}
-
-// Events
+//logic
 gallery.addEventListener('click', e => {
           findClickedImageIndex(e);
-          toggleViewMaster(); 
-          displayImageInViewMaster();
+          toggleViewMaster();
+          addRemoveNextPreviousButtons();
+          slideImageReelLeft();
+          updatePagination();
 })
 
 nextButton.addEventListener('click', () => {
           displayNextImage()
 })
+
 previousButton.addEventListener('click', () => {
           displayPreviousImage();
 })
@@ -78,6 +35,65 @@ closeButton.addEventListener('click', () => {
           toggleViewMaster();
 })
 
+//Functions
+const findClickedImageIndex = (e) => {
+          const galleryclickedImage = e.target.closest('li'); 
+          imageArrayIndex = imageArray.findIndex(img => img === galleryclickedImage);
+          setLeftPosition = imageArrayIndex * 100;
+}
+
+const toggleViewMaster = () => {
+          viewMasterModal.classList.toggle('modal-is-displayed');
+          document.querySelector('body').classList.toggle('stopScroll');
+}
+
+const slideImageReelLeft = () => {
+          ViewMasterImageReel.style.left = '-' + setLeftPosition + '%';
+}
+
+const displayNextImage = () => {
+          if (setLeftPosition != ((imageArray.length-1) * 100)) {
+                    setLeftPosition = setLeftPosition + 100;
+                    slideImageReelLeft();
+                    imageArrayIndex++;
+                    updatePagination();
+                    addRemoveNextPreviousButtons();
+          }
+          else return;         
+}
+
+const displayPreviousImage = () => {
+          if (setLeftPosition > 0) {
+                    setLeftPosition = setLeftPosition - 100;
+                    slideImageReelLeft();
+                    imageArrayIndex--;
+                    updatePagination();
+                    addRemoveNextPreviousButtons();
+          }
+          else return; 
+}
+
+const addRemoveNextPreviousButtons = () => {
+          if (setLeftPosition == ((imageArray.length - 1) * 100)) {
+                    nextButton.classList.add('d-none');
+          }
+          if (setLeftPosition < ((imageArray.length - 1) * 100)) {
+                    nextButton.classList.remove('d-none');
+          }
+          if (setLeftPosition == 0) {
+                    previousButton.classList.add('d-none');
+          }
+          if (setLeftPosition > 0) {
+                    previousButton.classList.remove('d-none');
+          }
+          else return;
+}
+
+const updatePagination = () => {
+          pagination.innerHTML = (imageArrayIndex + 1) + ' / ' + (imageArray.length);
+}
+
+//Event listeners
 document.addEventListener('keyup', e => {   
           if (e.keyCode == 39) {
                     displayNextImage();    

@@ -4,40 +4,34 @@
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
           <title>Vanilla JS View Master</title>
-          <link rel="stylesheet" href="css/view-master.css" type="text/css" class="css">
-
-          
+          <link rel="stylesheet" href="css/view-master.css" type="text/css" class="css">          
 </head>
 <body>
           <div class="gallery">
-                    <a href="javascript:void(0)"><img src="./img/chick.jpg" alt="Photo of a chick"></a>
-                    <a href="javascript:void(0)"><img src="./img/flower.jpg" alt="Photo of a flower"></a>
-                    <a href="javascript:void(0)"><img src="./img/flower2.jpg" alt="Photo of a flower"></a>
-                    <a href="javascript:void(0)"><img src="./img/goat.jpg" alt="Photo of a goat"></a>
-                    <a href="javascript:void(0)"><img src="./img/horse.jpg" alt="Photo of horse"></a>
-                    <a href="javascript:void(0)"><img src="./img/horse2.jpg" alt="Photo of a horse"></a>
+                    <ul> 
+                              <li><a href="javascript:void(0)"><img src="./img/chick.jpg" alt="Photo of a chick"></a></li>
+                              <li><a href="javascript:void(0)"><img src="./img/flower.jpg" alt="Photo of a flower"></a></li>
+                              <li><a href="javascript:void(0)"><img src="./img/flower2.jpg" alt="Photo of a flower"></a></li>
+                              <li><a href="javascript:void(0)"><img src="./img/goat.jpg" alt="Photo of a chick"></a></li>
+                              <li><a href="javascript:void(0)"><img src="./img/horse.jpg" alt="Photo of a flower"></a></li>
+                              <li><a href="javascript:void(0)"><img src="./img/horse2.jpg" alt="Photo of a flower"></a></li>                                        
+                    </ul>
           </div>
           <div class="view-master-modal">
                     <div class="view-master">
-                              <div class="view-master-controls">
+                              <div class="view-master-close">
                                         <a href="javascript:void(0)" class="view-master-close-btn">
                                                   <img class="close-image" src="img/close-image-overlay.svg" alt="Close button">
-                                                  <span>close</span>
+                                                  <!-- <span>close</span> -->
+                                                  <span class="pagination"></span>
                                         </a>
                               </div>
-                              <div class="pagination">
-                              </div>
-                              <div class="reel">
-                                        <div class="reel-images"> 
-                                                  
-                                        </div> 
-                                        <a href="javascript:void(0)" class="previous-image-btn">
-                                                  <img src="img/prev-arrow.svg" alt="Previous button">
-                                        </a>
-                                        <a href="javascript:void(0)" class="next-image-btn">
-                                                  <img src="img/next-arrow.svg" alt="Next button">
-                                        </a>
-                              </div>
+                              <a href="javascript:void(0)" class="previous-image-btn">
+                                        <img src="img/prev-arrow.svg" alt="Previous button">
+                              </a>
+                              <a href="javascript:void(0)" class="next-image-btn">
+                                        <img src="img/next-arrow.svg" alt="Next button">
+                              </a>
                     </div>
           </div>
 </body>

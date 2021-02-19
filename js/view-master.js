@@ -13,14 +13,15 @@ const
           viewMasterModal               = document.querySelector('.view-master-modal');
 var       setLeftPosition               = 0,
           imageArrayIndex               = 0;
-
+          
 //logic
 gallery.addEventListener('click', e => {
           findClickedImageIndex(e);
           toggleViewMaster();
-          addRemoveNextPreviousButtons();
           slideImageReelLeft();
+          updateImgOpacity();
           updatePagination();
+          addRemoveNextPreviousButtons();
 })
 
 nextButton.addEventListener('click', () => {
@@ -33,7 +34,11 @@ previousButton.addEventListener('click', () => {
 
 closeButton.addEventListener('click', () => {
           toggleViewMaster();
+          ViewMasterImageReel.children[imageArrayIndex].classList.toggle('viewed-image');
 })
+
+//touch
+
 
 //Functions
 const findClickedImageIndex = (e) => {
@@ -51,11 +56,17 @@ const slideImageReelLeft = () => {
           ViewMasterImageReel.style.left = '-' + setLeftPosition + '%';
 }
 
+const updateImgOpacity = () => {
+          ViewMasterImageReel.children[imageArrayIndex].classList.toggle('viewed-image');
+}
+
 const displayNextImage = () => {
           if (setLeftPosition != ((imageArray.length-1) * 100)) {
                     setLeftPosition = setLeftPosition + 100;
                     slideImageReelLeft();
+                    updateImgOpacity();
                     imageArrayIndex++;
+                    updateImgOpacity();
                     updatePagination();
                     addRemoveNextPreviousButtons();
           }
@@ -66,7 +77,9 @@ const displayPreviousImage = () => {
           if (setLeftPosition > 0) {
                     setLeftPosition = setLeftPosition - 100;
                     slideImageReelLeft();
+                    updateImgOpacity();
                     imageArrayIndex--;
+                    updateImgOpacity();
                     updatePagination();
                     addRemoveNextPreviousButtons();
           }

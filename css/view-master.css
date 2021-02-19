@@ -10,6 +10,7 @@
           --modalInOut: top .2s ease-out, opacity .2s ease-in-out;
           --slideImage: left 0s ease-in-out; 
           --buttonColor: rgba(255, 255, 255, 0.2);
+          --buttonColorHover: rgba(255, 255, 255, 0.5);
           --modalColor: rgba(0, 0, 0, 0.9);
           --setBlur: blur(40px);
 }
@@ -42,16 +43,9 @@ a.view-master-close-btn:link, a.previous-image-btn:link, a.next-image-btn:link  
           transition: var(--controlButtonsHoverandScale);
 }
 
-a.previous-image-btn:hover, a.next-image-btn:hover {
+a.previous-image-btn:hover, a.next-image-btn:hover, a.view-master-close-btn:hover {
           transform: scale(1.2);
-          background-color: var(--buttonColor);
-          transition: var(--controlButtonsHover);
-          transition: var(--controlButtonsHoverandScale);
-}
-
-a.view-master-close-btn:hover {
-          transform: scale(1.1);
-          background-color: var(--buttonColor);
+          background-color: var(--buttonColorHover);
           transition: var(--controlButtonsHover);
           transition: var(--controlButtonsHoverandScale);
 }
@@ -60,7 +54,7 @@ a.view-master-close-btn:visited {
           color: white;
 }
 
-.view-master-close-btn > img {
+.view-master-close-btn > img, .previous-image-btn > img, .next-image-btn > img {
           transform: rotate(0deg);
           transition: var(--controlCloseButtonRotate);
 }
@@ -138,9 +132,8 @@ a.view-master-close-btn:hover > img {
 
 .view-master-close-btn {
           display: inline-block;
-          padding: 0px 0px 0px 32px;
-          border-radius: 24px;
-          line-height: 56px;
+          padding: 20px;
+          border-radius: 50%;
           -webkit-backdrop-filter: var(--setBlur);
           backdrop-filter: var(--setBlur);
           transition: var(--controlButtonsHover);
@@ -148,16 +141,19 @@ a.view-master-close-btn:hover > img {
 
 .pagination {
           display: inline-block;
-          padding: 0px 24px 0px 16px !important;
-          margin-left: 24px;
-          border-top-right-radius: 24px;
-          border-bottom-right-radius: 24px;
-          background-color: rgba(255, 255, 255, 0.2);
+          padding: 0px 32px 0px 32px !important;
+          border-radius: 32px;
+          line-height: 59px;
+          margin-left: 8px;
+          background-color: rgba(0, 0, 0, 0.3);
+          color: white;
 }
 
 .view-master-close img {
           vertical-align: middle;
           height: 20px;
+          text-align: center;
+          
 }
 
 /* Image Reel */
@@ -179,6 +175,7 @@ a.view-master-close-btn:hover > img {
 
 .view-master ul li {
           display: inline-block;
+          opacity: 0;
           width: 100%;
           height: 100%;
           padding: 0px;
@@ -190,7 +187,7 @@ a.view-master-close-btn:hover > img {
           width: 100%;
           height: 100%;
           padding: 0px;
-          margin: 0px; 
+          margin: 0px;
           object-fit: contain;
 }
 
@@ -234,4 +231,9 @@ a.view-master-close-btn:hover > img {
 
 .d-none {
           display: none;
+}
+
+.viewed-image {
+          opacity: 1 !important;
+          transition: var(--imgHoverOpacity);
 }

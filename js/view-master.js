@@ -1,71 +1,58 @@
 // Variables
-const     
-          imageReel                     = document.querySelector('.gallery ul'),
-          gallery                       = document.querySelector('.gallery'),
-          imageArray                    = Array.from(imageReel.children),
-          viewMaster                    = document.querySelector('.view-master'),
-          AddViewMasterImageReel        = viewMaster.innerHTML += imageReel.outerHTML,
-          ViewMasterImageReel           = document.querySelector('.view-master ul'),
+const     gallery                       = document.querySelector('.gallery'),
+          galleryUl                     = document.querySelector('.gallery ul'),
+          imgArray                      = Array.from(galleryUl.children),
+          viewMasterModal               = document.querySelector('.view-master-modal'),
           nextButton                    = document.querySelector('.next-image-btn'),
           previousButton                = document.querySelector('.previous-image-btn'),
           closeButton                   = document.querySelector('.view-master-close-btn'),
-          pagination                    = document.querySelector('.pagination'),
-          viewMasterModal               = document.querySelector('.view-master-modal');
-var       setLeftPosition               = 0,
-          imageArrayIndex               = 0;
-          
-//logic
-gallery.addEventListener('click', e => {
-          findClickedImageIndex(e);
-          toggleViewMaster();
-          slideImageReelLeft();
-          updateImgOpacity();
-          updatePagination();
-          addRemoveNextPreviousButtons();
-})
-
-nextButton.addEventListener('click', () => {
-          displayNextImage()
-})
-
-previousButton.addEventListener('click', () => {
-          displayPreviousImage();
-})
-
-closeButton.addEventListener('click', () => {
-          toggleViewMaster();
-          ViewMasterImageReel.children[imageArrayIndex].classList.toggle('viewed-image');
-})
-
-//touch
-
+          pagination                    = document.querySelector('.pagination');
+var       viewMaster                    = document.querySelector('.view-master'),
+          imgReel                       = "";
+          setLeftPosition               = 0,
+          imgArrayIndex                 = 0;
 
 //Functions
-const findClickedImageIndex = (e) => {
+const createNewImageListNoATag = (function () {
+          let ul = document.createElement("ul");
+          for (var i = 0; i < imgArray.length; i++) {
+                    let li = document.createElement("li");
+                    let img = imgArray[i].firstElementChild.firstElementChild.cloneNode(true);
+                    li.insertAdjacentElement('afterbegin', img);
+                    ul.insertAdjacentElement('beforeend', li);
+          }
+          viewMaster.insertAdjacentElement('beforeend', ul);
+          imgReel = document.querySelector('.view-master ul')
+}())
+
+findClickedImageIndex = (e) => {
           const galleryclickedImage = e.target.closest('li'); 
-          imageArrayIndex = imageArray.findIndex(img => img === galleryclickedImage);
-          setLeftPosition = imageArrayIndex * 100;
+          imgArrayIndex = imgArray.findIndex(img => img === galleryclickedImage);
+          setLeftPosition = imgArrayIndex * 100;
 }
 
-const toggleViewMaster = () => {
+toggleViewMaster = () => {
           viewMasterModal.classList.toggle('modal-is-displayed');
           document.querySelector('body').classList.toggle('stopScroll');
+          if (imgReel.children[imgArrayIndex].classList == 'viewed-image') {
+                    imgReel.children[imgArrayIndex].classList.toggle('viewed-image');
+          }
 }
 
-const slideImageReelLeft = () => {
-          ViewMasterImageReel.style.left = '-' + setLeftPosition + '%';
+slideimgReel = () => {
+          imgReel.style.left = '-' + setLeftPosition + '%';
 }
 
-const updateImgOpacity = () => {
-          ViewMasterImageReel.children[imageArrayIndex].classList.toggle('viewed-image');
+updateImgOpacity = () => {
+          imgReel.children[imgArrayIndex].classList.toggle('viewed-image');
 }
 
-const displayNextImage = () => {
-          if (setLeftPosition != ((imageArray.length-1) * 100)) {
+displayNextImage = () => {
+          if (setLeftPosition != ((imgArray.length-1) * 100)) {
                     setLeftPosition = setLeftPosition + 100;
-                    slideImageReelLeft();
+                    slideimgReel();
                     updateImgOpacity();
-                    imageArrayIndex++;
+                    imgArrayIndex++;
                     updateImgOpacity();
                     updatePagination();
                     addRemoveNextPreviousButtons();
@@ -73,12 +60,12 @@ const displayNextImage = () => {
           else return;         
 }
 
-const displayPreviousImage = () => {
+displayPreviousImage = () => {
           if (setLeftPosition > 0) {
                     setLeftPosition = setLeftPosition - 100;
-                    slideImageReelLeft();
+                    slideimgReel();
                     updateImgOpacity();
-                    imageArrayIndex--;
+                    imgArrayIndex--;
                     updateImgOpacity();
                     updatePagination();
                     addRemoveNextPreviousButtons();
@@ -86,11 +73,11 @@ const displayPreviousImage = () => {
           else return; 
 }
 
-const addRemoveNextPreviousButtons = () => {
-          if (setLeftPosition == ((imageArray.length - 1) * 100)) {
+addRemoveNextPreviousButtons = () => {
+          if (setLeftPosition == ((imgArray.length - 1) * 100)) {
                     nextButton.classList.add('d-none');
           }
-          if (setLeftPosition < ((imageArray.length - 1) * 100)) {
+          if (setLeftPosition < ((imgArray.length - 1) * 100)) {
                     nextButton.classList.remove('d-none');
           }
           if (setLeftPosition == 0) {
@@ -102,21 +89,28 @@ const addRemoveNextPreviousButtons = () => {
           else return;
 }
 
-const updatePagination = () => {
-          pagination.innerHTML = (imageArrayIndex + 1) + ' / ' + (imageArray.length);
+updatePagination = () => {
+          pagination.innerHTML = (imgArrayIndex + 1) + ' / ' + (imgArray.length);
 }
 
 //Event listeners
-document.addEventListener('keyup', e => {   
-          if (e.keyCode == 39) {
-                    displayNextImage();    
-          }
-          if (e.keyCode == 37) {
-                    displayPreviousImage();    
-          }
-          if (e.keyCode == 27) {
-                    if (viewMasterModal.className === 'view-master-modal modal-is-displayed') {
-                              toggleViewMaster();   
-                    }
-          }
+nextButton.addEventListener('click', displayNextImage)
+
+previousButton.addEventListener('click', displayPreviousImage)
+
+closeButton.addEventListener('click', toggleViewMaster)
+
+gallery.addEventListener('click', function (e) {
+          findClickedImageIndex(e);
+          toggleViewMaster();
+          slideimgReel();
+          updateImgOpacity();
+          updatePagination();
+          addRemoveNextPreviousButtons();
+})
+
+document.addEventListener('keyup', function(e) {   
+          if (e.keyCode == 39) {displayNextImage();}
+          if (e.keyCode == 37) {displayPreviousImage();}
+          if (e.keyCode == 27) {toggleViewMaster();}
 })

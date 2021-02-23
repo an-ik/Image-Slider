@@ -7,7 +7,7 @@
           --controlButtonsHoverandScale: transform .2s ease-in-out;
           --controlCloseButtonRotate: transform .2s ease-in-out;
           --imgHoverOpacity: opacity .2s ease-in-out;
-          --modalInOut: top .2s ease-out, opacity .2s ease-in-out;
+          --modalInOut: top 500ms ease-in 0s;
           --slideImage: left 0s ease-in-out; 
           --buttonColor: rgba(255, 255, 255, 0.2);
           --buttonColorHover: rgba(255, 255, 255, 0.5);
@@ -111,7 +111,7 @@ a.view-master-close-btn:hover > img {
           background-color: var(--modalColor);
           -webkit-backdrop-filter: var(--setBlur);
           backdrop-filter: var(--setBlur);
-          transition: var(--modalInOut);   
+          transition: top 0.3s ease, opacity 0.0s ease;
 }
 
 .view-master {
@@ -145,7 +145,7 @@ a.view-master-close-btn:hover > img {
           border-radius: 32px;
           line-height: 59px;
           margin-left: 8px;
-          background-color: rgba(0, 0, 0, 0.3);
+          background-color: rgba(255, 255, 255, 0.3);
           color: white;
 }
 
@@ -170,7 +170,7 @@ a.view-master-close-btn:hover > img {
           list-style-position: inside;
           white-space: nowrap;   
           transition: var(--slideImage);
-          font-size: 0px;   
+          font-size: 0px;
 }
 
 .view-master ul li {
@@ -179,7 +179,7 @@ a.view-master-close-btn:hover > img {
           width: 100%;
           height: 100%;
           padding: 0px;
-          margin: 0px;         
+          margin: 0px;      
 }
 
 .view-master ul li img {
@@ -219,10 +219,9 @@ a.view-master-close-btn:hover > img {
 /* Display Toggle */
 
 .modal-is-displayed {
-          transition: var(--modalInOut);
-          height: 100vh;
+          top: 0vh;
           opacity: 1;
-          top: 0px;
+          transition: top 0.3s ease, opacity 0.0s ease;
 }
 
 .stopScroll {

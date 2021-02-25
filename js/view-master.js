@@ -26,7 +26,7 @@ const createNewImageListNoATag = (function () {
 }())
 
 findClickedImageIndex = (e) => {
-          const galleryclickedImage = e.target.closest('li'); 
+          let galleryclickedImage = e.target.closest('li');
           imgArrayIndex = imgArray.findIndex(img => img === galleryclickedImage);
           setLeftPosition = imgArrayIndex * 100;
 }
@@ -90,17 +90,15 @@ addRemoveNextPreviousButtons = () => {
 }
 
 updatePagination = () => {
-          pagination.innerHTML = (imgArrayIndex + 1) + ' / ' + (imgArray.length);
+          pagination.innerHTML = (imgArrayIndex + 1) + ' of ' + (imgArray.length);
 }
 
 //Event listeners
 nextButton.addEventListener('click', displayNextImage)
-
 previousButton.addEventListener('click', displayPreviousImage)
-
 closeButton.addEventListener('click', toggleViewMaster)
 
-gallery.addEventListener('click', function (e) {
+galleryUl.addEventListener('click', function (e) {
           findClickedImageIndex(e);
           toggleViewMaster();
           slideimgReel();

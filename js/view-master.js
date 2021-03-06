@@ -12,7 +12,10 @@ var       viewMaster                    = document.querySelector('.view-master')
           setLeftPosition               = 0,
           imgArrayIndex                 = 0;
 
-//Functions
+//Clone images from gallery ul li
+//Create a ul, create li
+//Insert image into li
+//Add ul to imgReel
 const createNewImageListNoATag = (function () {
           let ul = document.createElement("ul");
           for (var i = 0; i < imgArray.length; i++) {
@@ -22,31 +25,39 @@ const createNewImageListNoATag = (function () {
                     ul.insertAdjacentElement('beforeend', li);
           }
           viewMaster.insertAdjacentElement('beforeend', ul);
-          imgReel = document.querySelector('.view-master ul')
+          imgReel = document.querySelector('.view-master ul');
 }())
 
+//Find the array index of the clicked on image
+//update setLeftPosition which will tell how much to slide the imgReel
 findClickedImageIndex = (e) => {
           let galleryclickedImage = e.target.closest('li');
           imgArrayIndex = imgArray.findIndex(img => img === galleryclickedImage);
           setLeftPosition = imgArrayIndex * 100;
 }
 
+//Show or hides the view-master 
+//Prevents body from scrolling
+//Shows or hides the clicked image
 toggleViewMaster = () => {
           viewMasterModal.classList.toggle('modal-is-displayed');
           document.querySelector('body').classList.toggle('stopScroll');
           if (imgReel.children[imgArrayIndex].classList == 'viewed-image') {
-                    imgReel.children[imgArrayIndex].classList.toggle('viewed-image');
+                    updateImgOpacity();
           }
 }
 
-slideimgReel = () => {
-          imgReel.style.left = '-' + setLeftPosition + '%';
+//Slides imgReel to the clicked image
+function slideimgReel() {
+          imgReel.style.transform = 'translate(-' + setLeftPosition + '%)';
 }
 
+//Shows or hides the clicked image
 updateImgOpacity = () => {
           imgReel.children[imgArrayIndex].classList.toggle('viewed-image');
 }
 
+//Displays next image
 displayNextImage = () => {
           if (setLeftPosition != ((imgArray.length-1) * 100)) {
                     setLeftPosition = setLeftPosition + 100;
@@ -60,6 +71,7 @@ displayNextImage = () => {
           else return;         
 }
 
+//Displays previous image
 displayPreviousImage = () => {
           if (setLeftPosition > 0) {
                     setLeftPosition = setLeftPosition - 100;
@@ -73,6 +85,7 @@ displayPreviousImage = () => {
           else return; 
 }
 
+//Show or hide next and previous buttons if you hit the beginning or end of the imgReel
 addRemoveNextPreviousButtons = () => {
           if (setLeftPosition == ((imgArray.length - 1) * 100)) {
                     nextButton.classList.add('d-none');
@@ -89,6 +102,7 @@ addRemoveNextPreviousButtons = () => {
           else return;
 }
 
+//Updates pagination based on what image you are viewing
 updatePagination = () => {
           pagination.innerHTML = (imgArrayIndex + 1) + ' of ' + (imgArray.length);
 }
@@ -110,5 +124,56 @@ galleryUl.addEventListener('click', function (e) {
 document.addEventListener('keyup', function(e) {   
           if (e.keyCode == 39) {displayNextImage();}
           if (e.keyCode == 37) {displayPreviousImage();}
-          if (e.keyCode == 27) {toggleViewMaster();}
+          if (e.keyCode == 27) {
+                    if (viewMasterModal.classList == ('view-master-modal modal-is-displayed')) {
+                              toggleViewMaster();
+                    }
+          }
 })
+
+let startX = null;
+let viewPortWidth = null;
+var initialSetLeftPosition = null;
+
+
+imgReel.addEventListener('touchstart', e => {
+          e.preventDefault();
+          initialSetLeftPosition = setLeftPosition;
+          viewPortWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+          startX = Math.round((e.changedTouches[0].clientX / viewPortWidth) * 100);
+}, false)
+
+imgReel.addEventListener('touchmove', e => {
+          e.preventDefault();
+          var newX = Math.round((e.changedTouches[0].clientX / viewPortWidth) * 100);
+          if (newX < startX && newX > 0 && setLeftPosition < ((imgArray.length-1) * 100)) {
+                    var dX = startX - newX;
+                    setLeftPosition = initialSetLeftPosition + dX;
+                    slideimgReel();
+          }
+          if (newX > startX && newX < 100 && setLeftPosition > 0) {
+                    var dX = newX - startX;
+                    setLeftPosition = initialSetLeftPosition - dX;
+                    slideimgReel();
+          }
+}, false)
+      
+imgReel.addEventListener('touchend', e => {
+          e.preventDefault();
+          lastX = Math.round((e.changedTouches[0].clientX / viewPortWidth) * 100);
+          console.log(startX, lastX);
+          if (startX < lastX && setLeftPosition > 0) {
+                    setLeftPosition = (Math.floor(setLeftPosition / 100)) * 100;
+                    slideimgReel();
+                    imgArrayIndex--;
+                    updatePagination();
+                    addRemoveNextPreviousButtons();
+          }
+          if (startX > lastX && setLeftPosition < ((imgArray.length-1) * 100)) {
+                    setLeftPosition = (Math.ceil(setLeftPosition / 100)) * 100;
+                    slideimgReel();
+                    imgArrayIndex++;
+                    updatePagination();
+                    addRemoveNextPreviousButtons();
+          }
+}, false)

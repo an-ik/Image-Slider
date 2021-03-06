@@ -7,7 +7,7 @@
           --controlButtonsHoverandScale: transform .2s ease-in-out;
           --controlCloseButtonRotate: transform .2s ease-in-out;
           --imgHoverOpacity: opacity .2s ease-in-out;
-          --slideImage: left 0s ease-in-out; 
+          --slideImage: left 0.5s ease-in-out; 
           --buttonColor: rgba(255, 255, 255, 0.2);
           --buttonColorHover: rgba(255, 255, 255, 0.5);
           --modalColor: rgba(0, 0, 0, 1.0);
@@ -39,7 +39,6 @@ h1 {
 /* a Tag Styles */
 
 a {
-          cursor: pointer;
           text-decoration: none;
 }
 
@@ -57,6 +56,10 @@ a.previous-image-btn:hover, a.next-image-btn:hover, a.view-master-close-btn:hove
           transition: var(--controlButtonsHoverandScale);
 }
 
+a.previous-image-btn:active, a.next-image-btn:active, a.view-master-close-btn:active {
+          transform: scale(0.9);
+}
+
 a.view-master-close-btn:visited {
           color: white;
 }
@@ -72,16 +75,17 @@ a.view-master-close-btn:hover > img {
 }
 
 .gallery ul li img:hover {
-          opacity: 0.7;
+          opacity: 0.6;
+          cursor: zoom-in;
           transition-property: all;
-          transition-duration: 0.3s;
+          transition-duration: 0.5s;
           transition-timing-function: ease-in-out;
-          transform: scale(1.1);
+          transform: scale(1.04);
 }
 
 .gallery ul li {
           background-color: black;
-          clip-path: fill-box;
+          overflow: hidden;
 }
 
 /* Gallery */
@@ -131,7 +135,7 @@ a.view-master-close-btn:hover > img {
           top: 100vh;
           transform: scale(0);
           transition-property: all;
-          transition-duration: 0.3s;
+          transition-duration: 0.5s;
           background-color: var(--modalColor);
           backdrop-filter: var(--setBlur);
           -webkit-backdrop-filter: var(--setBlur);
@@ -185,7 +189,7 @@ a.view-master-close-btn:hover > img {
 
 .view-master ul {
           position: fixed;
-          left: 0%;
+          transform: translate(0%);
           align-self: center;
           width: 100%;
           height: 80%;
@@ -196,11 +200,14 @@ a.view-master-close-btn:hover > img {
           white-space: nowrap;   
           transition: var(--slideImage);
           font-size: 0px;
+          cursor: grab;
+          transition-property: all;
+          transition-duration: 0.3s;
 }
 
 .view-master ul li {
           display: inline-block;
-          opacity: 0;
+          opacity: 1;
           width: 100%;
           height: 100%;
           padding: 0px;
@@ -214,6 +221,7 @@ a.view-master-close-btn:hover > img {
           padding: 0px;
           margin: 0px;
           object-fit: contain;
+          pointer-events: none;
 }
 
 /* Next and Previous Buttons */
@@ -247,7 +255,7 @@ a.view-master-close-btn:hover > img {
           top: 0vh;
           transform: scale(1);
           transition-property: all;
-          transition-duration: 0.3s;
+          transition-duration: 0.5s;
 }
 
 .stopScroll {

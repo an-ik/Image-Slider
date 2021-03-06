@@ -41,6 +41,7 @@ findClickedImageIndex = (e) => {
 //Shows or hides the clicked image
 toggleViewMaster = () => {
           viewMasterModal.classList.toggle('modal-is-displayed');
+          imgReel.classList.toggle('viewed-image');
           document.querySelector('body').classList.toggle('stopScroll');
           if (imgReel.children[imgArrayIndex].classList == 'viewed-image') {
                     updateImgOpacity();

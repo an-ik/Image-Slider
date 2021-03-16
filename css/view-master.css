@@ -3,15 +3,18 @@
 /* Variables */
 
 :root {
-          --controlButtonsHover: background-color ease-in-out .2s;
+          /* hover */
+          --controlButtonsHover: background-color .2s ease-in-out;
           --controlButtonsHoverandScale: transform .2s ease-in-out;
           --controlCloseButtonRotate: transform .2s ease-in-out;
+          /* transitions */
           --imgHoverOpacity: opacity .2s ease-in-out;
-          --slideImage: left 0.5s ease-in-out; 
-          --buttonColor: rgba(255, 255, 255, 0.2);
-          --buttonColorHover: rgba(255, 255, 255, 0.5);
-          --modalColor: rgba(0, 0, 0, 1.0);
-          --setBlur: blur(40px);
+          --slideImage: left 0.5s ease-in-out;
+          /* colors */
+          --black20: rgba(255, 255, 255, 0.2);
+          --black50: rgba(255, 255, 255, 0.5);
+          --black: rgba(0, 0, 0, 1.0);
+          --white: rgba(255, 255, 255, 1.0);
 }
 
 /* Window Level Styles */
@@ -28,62 +31,54 @@ body {
           font-family: Arial, Helvetica, sans-serif;
 }
 
-.page-title{
+.page-title {
           display: flex;
 }
 
-h1 {
-          margin: 0px 16px 0px 0px;
-}
-
-/* a Tag Styles */
+/* a Styles */
 
 a {
           text-decoration: none;
 }
 
-a.view-master-close-btn:link, a.previous-image-btn:link, a.next-image-btn:link  { 
-          color: white;
+a.view-master-close-btn:link,
+a.previous-image-btn:link,
+a.next-image-btn:link {
+          color: var(--white);
           transform: scale(1);
-          background-color: var(--buttonColor);
+          background-color: var(--black20);
           transition: var(--controlButtonsHoverandScale);
 }
 
-a.previous-image-btn:hover, a.next-image-btn:hover, a.view-master-close-btn:hover {
+a.previous-image-btn:hover,
+a.next-image-btn:hover,
+a.view-master-close-btn:hover {
           transform: scale(1.2);
-          background-color: var(--buttonColorHover);
+          background-color: var(--black50);
           transition: var(--controlButtonsHover);
           transition: var(--controlButtonsHoverandScale);
 }
 
-a.previous-image-btn:active, a.next-image-btn:active, a.view-master-close-btn:active {
+a.previous-image-btn:active,
+a.next-image-btn:active,
+a.view-master-close-btn:active {
           transform: scale(0.9);
 }
 
 a.view-master-close-btn:visited {
-          color: white;
+          color: var(--white);
 }
 
-.view-master-close-btn > img, .previous-image-btn > img, .next-image-btn > img {
+.view-master-close-btn>img,
+.previous-image-btn>img,
+.next-image-btn>img {
           transform: rotate(0deg);
           transition: var(--controlCloseButtonRotate);
 }
 
-a.view-master-close-btn:hover > img {
+a.view-master-close-btn:hover>img {
           transform: rotate(90deg);
           transition: var(--controlCloseButtonRotate);
-}
-
-.gallery ul li img:hover {
-          opacity: 0.6;
-          cursor: zoom-in;
-          transition-property: all 0.5s ease-in-out;
-          transform: scale(1.04);
-}
-
-.gallery ul li {
-          background-color: black;
-          overflow: hidden;
 }
 
 /* Gallery */
@@ -108,15 +103,9 @@ a.view-master-close-btn:hover > img {
           overflow: hidden;
 }
 
-.gallery ul li img {
-          height: 100%;
-          width: 100%;
-          display: block;
-          object-fit: cover;
-          transform: scale(1);
-          transition-property: all;
-          transition-duration: 0.3s;
-          transition-timing-function: ease-in-out;
+.gallery ul li {
+          background-color: var(--black);
+          overflow: hidden;
 }
 
 .gallery li:nth-child(3n) {
@@ -124,9 +113,25 @@ a.view-master-close-btn:hover > img {
           grid-column-end: 3;
 }
 
+.gallery ul li img {
+          height: 100%;
+          width: 100%;
+          display: block;
+          object-fit: cover;
+          transform: scale(1);
+          transition: all 0.3s ease-in-out;
+}
+
+.gallery ul li img:hover {
+          opacity: 0.6;
+          cursor: zoom-in;
+          transition: all 0.5s ease-in-out;
+          transform: scale(1.04);
+}
+
 /* View Master Container */
 
-.view-master-modal {  
+.view-master-modal {
           width: 100vw;
           height: 0vh;
           position: fixed;
@@ -134,18 +139,17 @@ a.view-master-close-btn:hover > img {
           transition-property: all;
           transition-duration: 0.3s;
           transition-timing-function: ease-in-out;
-          background-color: var(--modalColor);
-          backdrop-filter: var(--setBlur);
-          -webkit-backdrop-filter: var(--setBlur);
-          -moz-backdrop-filter: var(--setBlur);
-
+          background-color: var(--black);
 }
 
 .view-master {
           display: flex;
           flex-direction: row;
-          height: 100%;
+          height: 100vh;
           width: 100%;
+          opacity: 0 !important;
+          transition: opacity 0.3s ease-out 0s;
+          -moz-transition: opacity 0.3s ease-out 0s;
 }
 
 /* View Master Controls */
@@ -170,33 +174,29 @@ a.view-master-close-btn:hover > img {
           border-radius: 32px;
           line-height: 59px;
           margin-left: 8px;
-          background-color: rgba(255, 255, 255, 0.3);
-          color: white;
+          background-color: var(--black20);
+          color: var(--white);
 }
 
 .view-master-close img {
           vertical-align: middle;
           height: 20px;
           text-align: center;
-          
 }
 
 /* Image Reel */
 
 .view-master ul {
-          position: fixed;
+          position: relative;
           align-self: center;
           width: 100%;
-          height: 0%;
+          height: 90vh;
           margin: 0px;
           padding: 0px;
           list-style: none;
           list-style-position: inside;
           white-space: nowrap;
           font-size: 0px;
-          opacity: 0;
-          transition: opacity 0.3s ease-out 0.3s, transform 0.3s ease-out;
-          -moz-transition: opacity 0.3s ease-out 0.3s, transform 0.3s ease-out;
           cursor: grab;
 }
 
@@ -205,7 +205,7 @@ a.view-master-close-btn:hover > img {
           width: 100%;
           height: 100%;
           padding: 0px;
-          margin: 0px;      
+          margin: 0px;
 }
 
 .view-master ul li img {
@@ -220,37 +220,39 @@ a.view-master-close-btn:hover > img {
 
 /* Next and Previous Buttons */
 
-.previous-image-btn, .next-image-btn {
+.previous-image-btn,
+.next-image-btn {
           position: absolute;
           top: 50%;
           z-index: 1;
           border-radius: 50%;
           padding: 20px;
-          -webkit-backdrop-filter: var(--setBlur);
-          backdrop-filter: var(--setBlur);
           transition: var(--controlButtonsHover);
 }
 
 .previous-image-btn {
-          left: 40px;         
+          left: 40px;
 }
 
 .next-image-btn {
-          right: 40px;         
+          right: 40px;
 }
 
-.previous-image-btn img, .next-image-btn img {
+.previous-image-btn img,
+.next-image-btn img {
           vertical-align: middle;
 }
 
-/* Display Toggle */
+/* Toggles */
 
 .modal-is-displayed {
           top: 0vh;
           height: 100vh;
-          transition-property: all;
-          transition-duration: 0.3s;
-          transition-timing-function: ease-in-out;
+          transition: all 0.3s ease-in-out;
+}
+
+.smooth {
+          transition: transform 0.3s linear !important;
 }
 
 .stopScroll {
@@ -261,20 +263,21 @@ a.view-master-close-btn:hover > img {
           display: none;
 }
 
-.viewed-image {
-          height: 90vh !important;
+.show-view-master {
           opacity: 1 !important;
-          transition-property: opactiy;
-          transition-duration: 0.3s;
-          transition-delay: 0.5s;
+          transition: opacity 0.3s ease-out 0.3s;
+          -moz-transition: opacity 0.3s ease-out 0.3s;
 }
 
 /* Media Query */
 
 @media (max-width: 425px) {
-          .previous-image-btn, .next-image-btn {
-                    display:none;
+
+          .previous-image-btn,
+          .next-image-btn {
+                    display: none;
           }
+
           .gallery {
                     max-width: 100%;
                     border-radius: 0px;

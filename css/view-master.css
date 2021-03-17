@@ -11,8 +11,8 @@
           --imgHoverOpacity: opacity .2s ease-in-out;
           --slideImage: left 0.5s ease-in-out;
           /* colors */
-          --black20: rgba(255, 255, 255, 0.2);
-          --black50: rgba(255, 255, 255, 0.5);
+          --black20: rgba(51, 51, 51, 1.0);
+          --black50: rgba(128, 128, 128, 1.0);
           --black: rgba(0, 0, 0, 1.0);
           --white: rgba(255, 255, 255, 1.0);
 }
@@ -197,7 +197,6 @@ a.view-master-close-btn:hover>img {
           list-style-position: inside;
           white-space: nowrap;
           font-size: 0px;
-          cursor: grab;
 }
 
 .view-master ul li {
@@ -251,7 +250,7 @@ a.view-master-close-btn:hover>img {
           transition: all 0.3s ease-in-out;
 }
 
-.smooth {
+.view-master ul {
           transition: transform 0.3s linear !important;
 }
 
@@ -272,7 +271,6 @@ a.view-master-close-btn:hover>img {
 /* Media Query */
 
 @media (max-width: 425px) {
-
           .previous-image-btn,
           .next-image-btn {
                     display: none;
@@ -281,5 +279,9 @@ a.view-master-close-btn:hover>img {
           .gallery {
                     max-width: 100%;
                     border-radius: 0px;
+          }
+          .view-master-close {
+                    top: 85%;
+                    left: calc((100vw - 184px)/2);
           }
 }

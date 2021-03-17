@@ -1,4 +1,4 @@
-# viewMaster
+# Image Slider
 
 ## Table of contents
 * [General Info](#general-info)

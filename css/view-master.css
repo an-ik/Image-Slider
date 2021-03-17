@@ -158,7 +158,7 @@ a.view-master-close-btn:hover>img {
           z-index: 1;
           position: absolute;
           top: 40px;
-          left: 40px;
+          left: 80px;
 }
 
 .view-master-close-btn {
@@ -230,11 +230,11 @@ a.view-master-close-btn:hover>img {
 }
 
 .previous-image-btn {
-          left: 40px;
+          left: 80px;
 }
 
 .next-image-btn {
-          right: 40px;
+          right: 80px;
 }
 
 .previous-image-btn img,

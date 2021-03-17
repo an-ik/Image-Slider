@@ -136,9 +136,7 @@ a.view-master-close-btn:hover>img {
           height: 0vh;
           position: fixed;
           top: 100vh;
-          transition-property: all;
-          transition-duration: 0.3s;
-          transition-timing-function: ease-in-out;
+          transition: all 0.3s ease-in-out;
           background-color: var(--black);
 }
 
@@ -193,10 +191,12 @@ a.view-master-close-btn:hover>img {
           height: 90vh;
           margin: 0px;
           padding: 0px;
+          transition: transform 0.3s ease-in-out;
           list-style: none;
           list-style-position: inside;
           white-space: nowrap;
           font-size: 0px;
+          
 }
 
 .view-master ul li {
@@ -244,28 +244,25 @@ a.view-master-close-btn:hover>img {
 
 /* Toggles */
 
-.modal-is-displayed {
+.display-modal {
           top: 0vh;
           height: 100vh;
           transition: all 0.3s ease-in-out;
 }
 
-.view-master ul {
-          transition: transform 0.3s linear !important;
-}
-
-.stopScroll {
+.stop-scroll {
           overflow: hidden;
 }
 
-.d-none {
-          display: none;
-}
-
-.show-view-master {
+.display-view-master {
           opacity: 1 !important;
           transition: opacity 0.3s ease-out 0.3s;
           -moz-transition: opacity 0.3s ease-out 0.3s;
+}
+
+.disable-button {
+          opacity: 0.3;
+          cursor: not-allowed;
 }
 
 /* Media Query */
